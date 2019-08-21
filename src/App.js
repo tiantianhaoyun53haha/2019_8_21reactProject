@@ -6,8 +6,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       selectedTab: 'redTab',
-      hidden: false,
-      fullScreen: false,
+
+      fullScreen: true,
     };
   }
 
@@ -15,16 +15,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
+      // 因为style表示的时候，需要用{}包裹属性
+      <div style={ {position: 'fixed', height: '100%', width: '100%', top: 0} }>
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
           barTintColor="white"
-          hidden={this.state.hidden}
         >
           <TabBar.Item
-            title="Life"
-            key="Life"
+            title="首页"
+            key="Home"
             icon={<div style={{
               width: '22px',
               height: '22px',
