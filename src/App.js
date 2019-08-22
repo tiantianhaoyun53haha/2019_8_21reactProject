@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import {HashRouter as Router,Link,Route}from "react-router-dom"
+import {HashRouter as Router,Link,Route}from "react-router-dom";
+import MWLayout from "./components/MWLayout";
 
 // 定义组件
-const Home=()=><div>首页</div>
-const Cart=()=><div>购物车</div>
-const Mine=()=><div>我的</div>
-
-
+import  Home from "./pages/Home" ;
+import  Cart from "./pages/Cart";
+import  Mine from "./pages/Mine";
 
  class App extends Component { 
  render() { 
@@ -15,15 +14,13 @@ const Mine=()=><div>我的</div>
      <div>
          <Router>
              {/* 注意Link中的L是大写的 */}
-             <Link to="/">首页</Link>
-             <Link to="/Cart">购物车</Link>
-             <Link to="/Mine">我的</Link>
+          
             {/* 建立路由和组件的匹配 */}
             {/* 注意component的c是小写 */}
-             <Route path="/" component={Home} exact />
-             <Route path="/Cart" component={Cart}/>
-             <Route path="/Mine" component={Mine}  />
-
+             <Route path="/" render={(props)=><MWLayout {...props}> <Home /></MWLayout> } exact />
+             <Route path="/Cart" render={(props)=><MWLayout  {...props}> <Cart/></MWLayout> }/>
+             <Route path="/Mine" render={(props)=><MWLayout  {...props}><Mine/> </MWLayout>} />
+            {/* <Route path="/Category" Component={Category} ></Route> */}
          </Router>
      </div>
 

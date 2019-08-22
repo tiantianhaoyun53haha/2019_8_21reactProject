@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './02router的关键代码';
+import App from './App.js';
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
