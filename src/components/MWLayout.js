@@ -25,21 +25,10 @@ class MWLayout extends React.Component {
           <TabBar.Item
             title="首页"
             key="Home"
-            icon={<div style={{
-              width: '22px',
-              height: '22px',
-              background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
-            }}
-            />
-            }
-            selectedIcon={<div style={{
-              width: '22px',
-              height: '22px',
-              background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
-            }}
-            />
-            }
-            badge={1}
+            icon={<span className="iconfont icon-home" />}
+            
+            selectedIcon={<span style={{ color: "#108ee9" }} className="iconfont icon-home" />}
+           
             selected={this.props.match.url==="/"}
             onPress={() => {
               this.props.history.push("/")
@@ -49,55 +38,29 @@ class MWLayout extends React.Component {
             {this.props.children}
           </TabBar.Item>
           <TabBar.Item
-            icon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
-            selectedIcon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
+            icon={<span className="iconfont icon-gouwuche" />}
+            selectedIcon={<span style={{ color: "#108ee9" }} className="iconfont icon-gouwuche" />}
+        
             title="购物车"
             key="Cart"
-            badge={'new'}
+            badge={1}
             selected={this.props.match.url==="/Cart"}
             onPress={() => {
               this.props.history.push("/Cart")
             }}
-          >
             data-seed="logId1"
           >
+         
+        
             {/* 加{}表示它是一个变量 */}
           {  this.props.children}
           </TabBar.Item>
           <TabBar.Item
-            icon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
-            selectedIcon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
+         icon={<span className="iconfont icon-weibiaoti2fuzhi12" />}
+         selectedIcon={<span style={{ color: "#108ee9" }} className="iconfont icon-weibiaoti2fuzhi12" />}
             title="我的"
             key="Mine"
-            dot
+  
             selected={this.props.match.url==="/Mine"}
             onPress={() => {
               this.props.history.push("/Mine")

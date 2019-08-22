@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import {HashRouter as Router,Link,Route}from "react-router-dom";
 import MWLayout from "./components/MWLayout";
-
+import "./styles/iconfont.css"
 // 定义组件
 import  Home from "./pages/Home" ;
 import  Cart from "./pages/Cart";
@@ -11,6 +11,7 @@ import  Mine from "./pages/Mine";
  render() { 
  return ( 
  <Fragment>
+     {/* <div className="iconfont icon-plus"></div> */}
      <div>
          <Router>
              {/* 注意Link中的L是大写的 */}
