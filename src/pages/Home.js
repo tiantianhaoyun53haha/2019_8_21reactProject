@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Axios from "axios";
 import { Carousel } from 'antd-mobile';
+import { getSliderList, getCatesList } from "../request";
 class Home extends Component {
     state = {
         //  轮播图数据
@@ -13,20 +14,20 @@ class Home extends Component {
     }
     //  获取轮播图数据
     getSliderList() {
-        Axios.get("http://react.zbztb.cn/site/goods/gettopdata/goods")
+        getSliderList()
             .then(res => {
                 this.setState({
-                    sliderlist: res.data.message.sliderlist,
-                    toplist: res.data.message.toplist
+                    sliderlist: res.sliderlist,
+                    toplist: res.toplist
                 })
             })
     }
     // 获取商品数据
     getCatesList() {
-        Axios.get("http://react.zbztb.cn/site/goods/getgoodsgroup")
+        getCatesList()
             .then(res => {
                 // console.table(res.data.message);
-                this.setState({ cateslist: res.data.message });
+                this.setState({ cateslist: res.});
             })
     }
 
@@ -38,14 +39,14 @@ class Home extends Component {
         this.getCatesList();
     }
     render() {
-            /* 
-	    1 请求还没有回来 标签已经渲染 正确
-	    2 数据回来 标签重新渲染 
-	    3 轮播图经过以上流程之后 自己不会重新触发轮播图的轮播 轮播图封装的问题！！！
-	      1 数据还没有回来 我就不渲染标签
-	      2 数据回来了 我再渲染标签 
-	    
-	     */
+        /* 
+    1 请求还没有回来 标签已经渲染 正确
+    2 数据回来 标签重新渲染 
+    3 轮播图经过以上流程之后 自己不会重新触发轮播图的轮播 轮播图封装的问题！！！
+      1 数据还没有回来 我就不渲染标签
+      2 数据回来了 我再渲染标签 
+    
+     */
 
         return (
             <div className="mw_home">
@@ -74,7 +75,7 @@ class Home extends Component {
                             </a>
                         ))}
                     </Carousel>}
-                   
+
                 </div>
 
 
