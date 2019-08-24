@@ -57,9 +57,9 @@ class Home extends Component {
                         infinite
                     >
                         {this.state.sliderlist.map(val => (
-                            <a
+                            <div
                                 key={val.id}
-                                href="http://www.alipay.com"
+                                onClick={()=>{this.props.history.push("/GoodsDetail/"+val.id)}}
                                 style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                             >
                                 <img
@@ -72,7 +72,7 @@ class Home extends Component {
                                         this.setState({ imgHeight: 'auto' });
                                     }}
                                 />
-                            </a>
+                            </div>
                         ))}
                     </Carousel>}
 
@@ -85,14 +85,14 @@ class Home extends Component {
                     <div className="top_title">推荐商品</div>
                     <div className="top_content">
                         {this.state.toplist.map(v => (
-                            <a key={v.id} href="#">
+                            <div className="goods_top_item" key={v.id}  onClick={()=>{this.props.history.push("/GoodsDetail/"+v.id)}}>
                                 {/* 左侧的图片容器 */}
                                 <div className="top_img_wrap">
                                     <img src={v.img_url} alt="" />
                                 </div>
                                 {/* 右侧的商品名称 */}
                                 <div className="top_goods_name">  <div>{v.title}</div> </div>
-                            </a>
+                            </div>
                         )
                         )}
                     </div>
@@ -105,7 +105,7 @@ class Home extends Component {
                             <div className="cate_group_title">{v1.catetitle}</div>
                             <div className="cate_group_content">
                                 {v1.datas.map(v2 => (
-                                    <a href="#" key={v2.artID}>
+                                    <div   onClick={()=>{this.props.history.push("/GoodsDetail/"+v2.artID)}} className="goods_detail" href="#" key={v2.artID}>
                                         <img src={v2.img_url} alt="" />
                                         <div className="goods_name">{v2.artTitle}</div>
                                         <div className="goods_price_wrap">
@@ -116,7 +116,7 @@ class Home extends Component {
                                             <span>  热卖中</span>
                                             <span className="goods_num">{v2.stock_quantity}件</span>
                                         </div>
-                                    </a>
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -130,17 +130,7 @@ class Home extends Component {
 	            padding: 15px 0;
 	            }
 	            .top_content{
-	              a{
-	                display: flex;
-	                background-color: #fff;
-	                padding: 5px;
-	                border-bottom: 1px solid #ccc;
-	                .top_img_wrap{
-	                  flex: 1;
-	                  img{
-	                    width: 100%;
-	                  }
-	                }
+	        
 	                .top_goods_name{
 	                  flex: 4;
 	                  color: #666;
