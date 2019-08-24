@@ -11,7 +11,7 @@ import  Mine from "./pages/Mine";
  render() { 
  return ( 
  <Fragment>
-     {/* <div className="iconfont icon-plus"></div> */}
+  
      <div>
          <Router>
              {/* 注意Link中的L是大写的 */}
