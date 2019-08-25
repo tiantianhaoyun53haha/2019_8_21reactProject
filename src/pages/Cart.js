@@ -69,10 +69,10 @@ class Cart extends Component {
             <CheckboxItem onChange={this.props.itemAllCheck} checked={this.props.allChecked}>全选</CheckboxItem>
           </div>
           <div className="tota_price_wrap">
-            合计 <span>￥{999}</span>
+            合计 <span>￥{this.props.totalPrice}</span>
           </div>
           <div className="pay_wrap">
-            去结算({10})
+            去结算(({this.props.totalNums}))
 </div>
 
         </div>
@@ -176,26 +176,56 @@ class Cart extends Component {
   }
 }
 
+// 计算购物车的总价格
+const countAll = (arr) => {
+  // 1 总价格
+  let totalPrice = 0;
+  arr.forEach(v => {
+    if (v.checked) {
+      totalPrice += v.num * v.price;
+    }
+  })
+  return totalPrice;
+}
+
+const countNumsAll = (arr) => {
+  // 1 总价格
+  let sum = 0;
+  arr.forEach(v => {
+    if (v.checked) {
+      sum += v.num;
+    }
+  })
+  return sum;
+}
+
+
+
 // 3 定义 store的数据 和 组件的props的映射对象
 // 这个对象类似 vue中 computed 
 const mapStateToProps = (state) => {
 
   return {
     carts: state.cartReducer.carts,
-     // 全选状态 every方法的注意 空数组的时候 直接返回true
-     allChecked:state.cartReducer.carts.length&&state.cartReducer.carts.every(v=>v.checked)
+    // 全选状态 every方法的注意 空数组的时候 直接返回true
+    allChecked: state.cartReducer.carts.length && state.cartReducer.carts.every(v => v.checked)
+         // 总价格
+    totalPrice: countAll(state.cartReducer.carts),
+    totalNums: countNumsAll(state.cartReducer.carts)
+    // 总数量
+
   }
 }
 // 将action映射到props里面
-const mapDispatchToProps=(dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
-    itemCheck:(id)=>{
+    itemCheck: (id) => {
       // 就会跳转到 购物车管理员中了！
       dispatch(itemChange(id))
     },
-    itemAllCheck:(e)=>{
+    itemAllCheck: (e) => {
       // 1 获取自己的当前的选中状态  点击之后的状态的值 
-      let {checked}=e.target;
+      let { checked } = e.target;
       // 2 取反
       // checked=!checked;
       // 3 传递管理员中
@@ -204,6 +234,6 @@ const mapDispatchToProps=(dispatch)=>{
     }
   }
 }
-    
+
 // 2 开始连接
 export default connect(mapStateToProps, mapDispatchToProps)(Cart); 
