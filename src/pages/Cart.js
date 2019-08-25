@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Icon, NavBar, SwipeAction, Checkbox } from "antd-mobile";
 // 1 准备接受store的数据
 import { connect } from "react-redux";
+import { itemChange, itemAllCheck } from "../store/actionCreator";
 class Cart extends Component {
   render() {
     return (
@@ -190,10 +191,7 @@ const mapDispatchToProps=(dispatch)=>{
   return {
     itemCheck:(id)=>{
       // 就会跳转到 购物车管理员中了！
-      dispatch({
-        type:"item_change",
-        value:{id}
-      })
+      dispatch(itemChange(id))
     },
     itemAllCheck:(e)=>{
       // 1 获取自己的当前的选中状态  点击之后的状态的值 
@@ -201,10 +199,7 @@ const mapDispatchToProps=(dispatch)=>{
       // 2 取反
       // checked=!checked;
       // 3 传递管理员中
-      dispatch({
-        type:"item_all_check",
-        value:{checked}
-      })
+      dispatch(itemAllCheck(checked))
       // 4 遍历购物车的商品 让他们的选中状态 都等于取反后的状态
     }
   }

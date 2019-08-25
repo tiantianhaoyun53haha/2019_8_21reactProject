@@ -1,4 +1,7 @@
+import { ITEM_CHANGE, ITEM_ALL_CHECK } from "../actionTypes";
+
 // 1 定义默认的购物车数据
+
 const defaultState = {
     carts: [{
       id: 11,
@@ -21,7 +24,7 @@ const defaultState = {
   // 2  暴露一个函数出去 函数 负责根据action的类型 来处理全局的数据
   export default (state = defaultState, action) => {
     switch (action.type) {
-      case "item_change":
+      case "ITEM_CHANGE":
         {
           // 0 获取要修改的商品对象 id
           const { id } = action.value;
@@ -34,7 +37,7 @@ const defaultState = {
           return newState;
           break;
         }
-      case "item_all_check":
+      case "ITEM_ALL_CHECK":
         {
           const {checked} = action.value;
   
