@@ -1,4 +1,4 @@
-import { ITEM_CHANGE, ITEM_ALL_CHECK } from "../actionTypes";
+import { ITEM_CHANGE, ITEM_ALL_CHECK,ITEM_NUM_UPDATE  } from "../actionTypes";
 
 // 1 定义默认的购物车数据
 
@@ -43,6 +43,14 @@ const defaultState = {
   
           let newState = JSON.parse(JSON.stringify(state));
           newState.carts.forEach(v => v.checked = checked);
+          return newState;
+          break;
+        }
+        case ITEM_NUM_UPDATE: {
+          const {id,unit}=action.value;
+          let newState = JSON.parse(JSON.stringify(state));
+          let index = newState.carts.findIndex((v) => v.id === id);
+          newState.carts[index].num+=unit;
           return newState;
           break;
         }

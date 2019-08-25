@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Icon, NavBar, SwipeAction, Checkbox } from "antd-mobile";
 // 1 准备接受store的数据
 import { connect } from "react-redux";
-import { itemChange, itemAllCheck } from "../store/actionCreator";
+import { itemChange, itemAllCheck ,itemNumUpdate} from "../store/actionCreator";
 class Cart extends Component {
   render() {
     return (
@@ -52,9 +52,9 @@ class Cart extends Component {
                   </div>
                   {/* 4 数量编辑工具 */}
                   <div className="goods_num_wrap">
-                    <div className="nums_operation">-</div>
+                    <div onClick={this.props.handleItemNumUpdate.bind(this,1,v.id)} className="nums_operation">-</div>
                     <div className="goods_num">{v.num}</div>
-                    <div className="nums_operation">+</div>
+                    <div  onClick={this.props.handleItemNumUpdate.bind(this,1,v.id)} className="nums_operation">+</div>
                   </div>
                 </div>
               </SwipeAction>
@@ -234,6 +234,10 @@ const mapDispatchToProps = (dispatch) => {
       // 3 传递管理员中
       dispatch(itemAllCheck(checked))
       // 4 遍历购物车的商品 让他们的选中状态 都等于取反后的状态
+    },
+    handleItemNumUpdate:(unit,id)=>{
+      // console.log(unit,id);
+      dispatch(itemNumUpdate(unit,id))
     }
   }
 }
