@@ -180,10 +180,35 @@ class Cart extends Component {
 const mapStateToProps = (state) => {
 
   return {
-    carts: state.cartReducer.carts
+    carts: state.cartReducer.carts,
+     // 全选状态 every方法的注意 空数组的时候 直接返回true
+     allChecked:state.cartReducer.carts.length&&state.cartReducer.carts.every(v=>v.checked)
   }
 }
-
-
+// 将action映射到props里面
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    itemCheck:(id)=>{
+      // 就会跳转到 购物车管理员中了！
+      dispatch({
+        type:"item_change",
+        value:{id}
+      })
+    },
+    itemAllCheck:(e)=>{
+      // 1 获取自己的当前的选中状态  点击之后的状态的值 
+      let {checked}=e.target;
+      // 2 取反
+      // checked=!checked;
+      // 3 传递管理员中
+      dispatch({
+        type:"item_all_check",
+        value:{checked}
+      })
+      // 4 遍历购物车的商品 让他们的选中状态 都等于取反后的状态
+    }
+  }
+}
+    
 // 2 开始连接
-export default connect(mapStateToProps, null)(Cart); 
+export default connect(mapStateToProps, mapDispatchToProps)(Cart); 
