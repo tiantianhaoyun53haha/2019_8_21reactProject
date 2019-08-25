@@ -204,15 +204,18 @@ const countNumsAll = (arr) => {
 // 3 定义 store的数据 和 组件的props的映射对象
 // 这个对象类似 vue中 computed 
 const mapStateToProps = (state) => {
-
+  let carts = state.cartReducer.carts;
   return {
     carts: state.cartReducer.carts,
     // 全选状态 every方法的注意 空数组的时候 直接返回true
-    allChecked: state.cartReducer.carts.length && state.cartReducer.carts.every(v => v.checked)
+    allChecked: state.cartReducer.carts.length && state.cartReducer.carts.every(v => v.checked),
          // 总价格
-    totalPrice: countAll(state.cartReducer.carts),
-    totalNums: countNumsAll(state.cartReducer.carts)
+    // totalPrice: countAll(state.cartReducer.carts),
+    // totalNums: countNumsAll(state.cartReducer.carts)
     // 总数量
+      // [].reduce  计算总和  
+      totalPrice: carts.reduce((beforeSum, v) => (v.checked ? (beforeSum + (v.price * v.num)) : beforeSum), 0),
+      totalNums: carts.reduce((beforeSum, v) => (v.checked ? (beforeSum + v.num) : beforeSum), 0)
 
   }
 }
