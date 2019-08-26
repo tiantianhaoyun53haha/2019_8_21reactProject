@@ -9,6 +9,8 @@ import  Cart from "./pages/Cart";
 import  Mine from "./pages/Mine";
 import GoodsDetail from "./pages/GoodsDetail";
 
+import MWLoadding from "./components/MWLoadding";
+import { connect  } from "react-redux";
  class App extends Component { 
  render() { 
  return ( 
@@ -31,4 +33,13 @@ import GoodsDetail from "./pages/GoodsDetail";
  );  
 } 
  } 
- export default App;
+
+ const mapStateToProps=(state)=>{
+    console.log(state.commonReducer.showLoadding);
+  
+    return {
+      showLoadding:state.commonReducer.showLoadding
+    }
+  }
+  
+  export default connect(mapStateToProps,null)(App); 

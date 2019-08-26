@@ -1,4 +1,5 @@
-import { ITEM_CHANGE, ITEM_ALL_CHECK,ITEM_NUM_UPDATE,ITEM_REMOVE,ITEM_ADD   } from "../actionTypes";
+import { ITEM_CHANGE, ITEM_ALL_CHECK,ITEM_NUM_UPDATE,
+  ITEM_REMOVE,ITEM_ADD,LOADDING_TOGGLE    } from "../actionTypes";
 
 /**
  * 返回 切换选中商品的action
@@ -52,3 +53,14 @@ export const itemAdd=(goodsObj)=>{
     type:ITEM_ADD,
     value:{goodsObj}
   }
+
+  /**
+ * 控制全局的等待效果
+ * @param {boolean} isShow 图片的是否显示
+ */
+export const loaddingToggle=(isShow)=>{
+  return {
+    type:LOADDING_TOGGLE,
+    value:isShow
+  }
+} 
