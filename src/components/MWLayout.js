@@ -1,6 +1,6 @@
 import { TabBar } from 'antd-mobile';
 import React, { Component, Fragment } from 'react';
-
+import {connect  } from "react-redux";
 class MWLayout extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +43,7 @@ class MWLayout extends React.Component {
         
             title="购物车"
             key="Cart"
-            badge={1}
+            badge={this.props.totalNums}
             selected={this.props.match.url==="/Cart"}
             onPress={() => {
               this.props.history.push("/Cart")
@@ -75,4 +75,14 @@ class MWLayout extends React.Component {
   }
 }
 
-export default MWLayout;
+// 映射对象 负责 组件的props和 store中的数据state的映射
+const mapStateToProps=(state)=>{
+  let {carts}=state.cartReducer;
+  return{
+    // 购买的数量
+    totalNums: carts.reduce((beforeSum, v) => (v.checked ? (beforeSum + v.num) : beforeSum), 0)
+  }
+}
+
+
+export default connect(mapStateToProps,null)(MWLayout); 

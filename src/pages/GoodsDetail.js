@@ -1,120 +1,121 @@
 import React, { Component, Fragment } from 'react';
 import { getGoodsInfo } from "../request";
-
+import { connect } from "react-redux";
+import { itemAdd } from "../store/actionCreator";
 
 
 
 class GoodsDetail extends Component {
-    state = {
-	    // 商品详情对象
-	    goodsinfo: {},
-	    // 轮播图数组
-	    imglist: [],
-	    imgHeight: 146
-	  }
-	  componentDidMount() {
-	    const { id } = this.props.match.params;
-	    getGoodsInfo(id)
-	      .then(res => {
-	        console.log(res);
-	        const { goodsinfo, imglist } = res;
-	        this.setState({ goodsinfo, imglist });
-	      })
-	  }
-	  render() {
-        const { goodsinfo, imglist } = this.state;
-	    return (
-	        <div className="goods_detail">
-	        {/* 导航栏 开始 */}
-	        <NavBar
-	          icon={<Icon type="left" />}
-	          mode="dark"
-	          onLeftClick={() => this.props.history.go(-1)}
-	        >商品详情</NavBar>
-	        {/* 导航栏 结束 */}
-	        {/* 轮播图 开始 */}
-	        <Carousel
-	          autoplay
-	          infinite
-	
-	        >
-	          {imglist.map(val => (
-	            <div
-	              key={val.id}
-	              className="detail_swiper"
-	              style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-	            >
-	              <img
-	                src={val.original_path}
-	                alt=""
-	                style={{ width: '100%', verticalAlign: 'top' }}
-	                onLoad={() => {
-	                  // fire window resize event to change height
-	                  window.dispatchEvent(new Event('resize'));
-	                  this.setState({ imgHeight: 'auto' });
-	                }}
-	              />
-	            </div>
-	          ))}
-	        </Carousel>
-	        {/* 轮播图 结束 */}
-	        {/* 商品的名称 开始 */}
-	        <div className="goods_name">
-	          {goodsinfo.title}
-	        </div>
-	        {/* 商品的名称 结束 */}
-	        {/* 商品名称 二级 开始 */}
-	        <div className="goods_subname">{goodsinfo.sub_title}</div>
-	        {/* 商品名称 二级 结束 */}
-	        {/* 商品的价格 开始 */}
-	        <div className="goods_price">
-	          <span className="news_price">￥{goodsinfo.sell_price}</span>
-	          <span className="before_price">￥{goodsinfo.market_price}</span>
-	        </div>
-	        {/* 商品的价格 结束 */}
-	
-	        {/* 商品的详情 开始 */}
-	        <div className="goods_des">
-	          <div className="goods_des_title">商品详情</div>
-	          <div className="goods_no">
-	            <span className="goods_no_text">商品编号</span>
-	            <span className="goods_no_val">{goodsinfo.goods_no}</span>
+	state = {
+		// 商品详情对象
+		goodsinfo: {},
+		// 轮播图数组
+		imglist: [],
+		imgHeight: 146
+	}
+	componentDidMount() {
+		const { id } = this.props.match.params;
+		getGoodsInfo(id)
+			.then(res => {
+				console.log(res);
+				const { goodsinfo, imglist } = res;
+				this.setState({ goodsinfo, imglist });
+			})
+	}
+	render() {
+		const { goodsinfo, imglist } = this.state;
+		return (
+			<div className="goods_detail">
+				{/* 导航栏 开始 */}
+				<NavBar
+					icon={<Icon type="left" />}
+					mode="dark"
+					onLeftClick={() => this.props.history.go(-1)}
+				>商品详情</NavBar>
+				{/* 导航栏 结束 */}
+				{/* 轮播图 开始 */}
+				<Carousel
+					autoplay
+					infinite
+
+				>
+					{imglist.map(val => (
+						<div
+							key={val.id}
+							className="detail_swiper"
+							style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+						>
+							<img
+								src={val.original_path}
+								alt=""
+								style={{ width: '100%', verticalAlign: 'top' }}
+								onLoad={() => {
+									// fire window resize event to change height
+									window.dispatchEvent(new Event('resize'));
+									this.setState({ imgHeight: 'auto' });
+								}}
+							/>
+						</div>
+					))}
+				</Carousel>
+				{/* 轮播图 结束 */}
+				{/* 商品的名称 开始 */}
+				<div className="goods_name">
+					{goodsinfo.title}
+				</div>
+				{/* 商品的名称 结束 */}
+				{/* 商品名称 二级 开始 */}
+				<div className="goods_subname">{goodsinfo.sub_title}</div>
+				{/* 商品名称 二级 结束 */}
+				{/* 商品的价格 开始 */}
+				<div className="goods_price">
+					<span className="news_price">￥{goodsinfo.sell_price}</span>
+					<span className="before_price">￥{goodsinfo.market_price}</span>
+				</div>
+				{/* 商品的价格 结束 */}
+
+				{/* 商品的详情 开始 */}
+				<div className="goods_des">
+					<div className="goods_des_title">商品详情</div>
+					<div className="goods_no">
+						<span className="goods_no_text">商品编号</span>
+						<span className="goods_no_val">{goodsinfo.goods_no}</span>
+					</div>
+					<div className="goods_num">
+						<span className="goods_num_text">库存</span>
+						<span className="goods_num_val">{goodsinfo.stock_quantity}件</span>
+					</div>
+					<div className="goods_time">
+						<span className="goods_time_text">上架时间</span>
+						<span className="goods_time_val">{(new Date(goodsinfo.add_time)).toLocaleString()}</span>
+					</div>
+				</div>
+				{/* 商品的详情 结束 */}
+
+				{/* 图文详情 开始 */}
+				<div dangerouslySetInnerHTML={{ __html: goodsinfo.content }} className="goods_introduce">
+
+				</div>
+				{/* 图文详情 结束 */}
+				{/* 底部工具栏 开始 */}
+				<footer className="btm_tool">
+					<div className="tool_item item_cart" onClick={() => { this.props.history.push("/Cart") }} >
+						<div className="iconfont icon-kefu"></div>
+						<div className="tool_item_name">客服</div>
+					</div>
+					<div className="tool_item">
+						<div className="iconfont icon-gouwuche"></div>
+						<div className="tool_item_name">购物车</div>
+					</div>
+					<div className="tool_item cart_add" onClick={() => { this.props.itemAdd(goodsinfo) }} >
+						加入购物车
 	          </div>
-	          <div className="goods_num">
-	            <span className="goods_num_text">库存</span>
-	            <span className="goods_num_val">{goodsinfo.stock_quantity}件</span>
+					<div className="tool_item buy_now">
+						立即购买
 	          </div>
-	          <div className="goods_time">
-	            <span className="goods_time_text">上架时间</span>
-	            <span className="goods_time_val">{(new Date(goodsinfo.add_time)).toLocaleString()}</span>
-	          </div>
-	        </div>
-	        {/* 商品的详情 结束 */}
-	
-	        {/* 图文详情 开始 */}
-	        <div dangerouslySetInnerHTML={{ __html: goodsinfo.content }} className="goods_introduce">
-	
-	        </div>
-	        {/* 图文详情 结束 */}
-	        {/* 底部工具栏 开始 */}
-	        <footer className="btm_tool">
-	          <div className="tool_item">
-	            <div className="iconfont icon-kefu"></div>
-	            <div className="tool_item_name">客服</div>
-	          </div>
-	          <div className="tool_item">
-	            <div className="iconfont icon-gouwuche"></div>
-	            <div className="tool_item_name">购物车</div>
-	          </div>
-	          <div className="tool_item cart_add">
-	            加入购物车
-	          </div>
-	          <div className="tool_item buy_now">
-	            立即购买
-	          </div>
-	        </footer>
-	        {/* 底部工具栏 结束 */}
-	        <style jsx>{`
+				</footer>
+				{/* 底部工具栏 结束 */}
+				<style jsx>{`
 	          .goods_detail{
 	            padding-bottom:45px;
 	          }
@@ -236,7 +237,22 @@ class GoodsDetail extends Component {
 	
 	    }
 	  }
-	
+	  .item_cart{
+    position:relative;
+    .cart_badge{
+      position: absolute;
+    background-color: orangered;
+    color: #fff;
+    top: -9px;
+    right: 5px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+  }
 	  .tool_item.cart_add {
 	    flex: 2;
 	    background-color: #ff976a;
@@ -254,9 +270,25 @@ class GoodsDetail extends Component {
 	  }
 	}
 	          `}</style>
-	      </div>
-	
-	    );
-	  }
+			</div>
+
+		);
 	}
-	export default GoodsDetail; 
+}
+const mapStateToProps=(state)=>{
+	let {carts}=state.cartReducer;
+	return{
+	  // 购买的数量
+	  totalNums: carts.reduce((beforeSum, v) => (v.checked ? (beforeSum + v.num) : beforeSum), 0)
+	}
+  }
+  
+  const mapDispatchToProps=(dispatch)=>{
+  return{
+	itemAdd:(obj)=>{
+	  dispatch(itemAdd(obj));
+	}
+  }
+  }
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(GoodsDetail); 

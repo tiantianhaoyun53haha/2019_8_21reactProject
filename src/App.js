@@ -21,7 +21,7 @@ import GoodsDetail from "./pages/GoodsDetail";
             {/* 建立路由和组件的匹配 */}
             {/* 注意component的c是小写 */}
              <Route path="/" render={(props)=><MWLayout {...props}> <Home  {...props}/></MWLayout> } exact />
-             <Route path="/Cart" render={(props)=><MWLayout  {...props}> <Cart/></MWLayout> }/>
+             <Route path="/Cart" render={(props)=><MWLayout  {...props}> <Cart  {...props}/></MWLayout> }/>
              <Route path="/Mine" render={(props)=><MWLayout  {...props}><Mine/> </MWLayout>} />
              <Route path="/GoodsDetail/:id" component={GoodsDetail}  />
          </Router>
