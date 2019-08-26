@@ -1,4 +1,4 @@
-import { ITEM_CHANGE, ITEM_ALL_CHECK,ITEM_NUM_UPDATE } from "../actionTypes";
+import { ITEM_CHANGE, ITEM_ALL_CHECK,ITEM_NUM_UPDATE,ITEM_REMOVE  } from "../actionTypes";
 
 /**
  * 返回 切换选中商品的action
@@ -34,3 +34,12 @@ export const itemNumUpdate = (unit, id) => {
     value: { unit, id }
   }
 }
+/**
+ * 删除 action
+ * @param {number} id 要删除的商品的id
+ */
+export  const itemRemove=(id)=>{
+  return {
+    type:ITEM_REMOVE,
+    value:{id}
+  }
